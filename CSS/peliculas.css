@@ -6,9 +6,9 @@ body{
 }
 #films{
     display: grid;
-    grid-template-columns: repeat(4, 220px);
-    grid-template-rows: repeat(5, 300px);
-    grid-gap: 130px 100px;
+    grid-template-columns: 220px 500px;
+    grid-template-rows: 300px;
+    grid-gap: 250px;
     margin-left: 40px;
     margin-top: 90px;  
     grid-auto-rows: 400px;
@@ -32,8 +32,8 @@ p{
     grid-template-rows: 50px;
     margin-bottom: 0px;
     color: black;
+    text-align : left;
 }
-
 
 #average{
     justify-items: right;
@@ -63,4 +63,16 @@ img{
 #header{
     background-color: brown;
     height: 80px;
+}
+div{
+    margin: 0%;
+    height: 400px;
+    text-align : justify;
+    
+}
+p1{
+    font-size: 25px;
+    font-family: 'Lato', sans-serif;
+    
+    
 }
