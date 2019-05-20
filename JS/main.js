@@ -7,40 +7,26 @@ let films = [];
 let generos = [];
 let botonBuscar = document.querySelector('#botonBuscar');
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
 
-        axios.get(API_URL + API_POPULAR_URL + '?api_key=' + API_KEY).then((response) => {
-                films = response.data.results;
+        let response = await axios.get(API_URL + API_POPULAR_URL + '?api_key=' + API_KEY)
+        films = response.data.results
+        let resp = await axios.get(API_URL + API_CATEGORIES + '?api_key=' + API_KEY)
+        generos = resp.data.genres
 
+        films = films.map((pelicula) => {
+                let arrayGeneros = pelicula['genre_ids'].map((id) => {
+                        return generos.find((genero) => genero.id === id);
+                });
+                pelicula.genres = arrayGeneros;
+                pelicula['poster_path'] = IMG_PATH + pelicula['poster_path'];
+                pelicula['backdrop_path'] = IMG_PATH + pelicula['backdrop_path'];
 
-                axios.get(API_URL + API_CATEGORIES + '?api_key=' + API_KEY).then((resp) => {
-                        generos = resp.data.genres;
-
-                        films = films.map((pelicula) => {
-                                let arrayGeneros = pelicula['genre_ids'].map((id) => {
-                                        return generos.find((genero) => genero.id === id);
-                                });
-                                pelicula.genres = arrayGeneros;
-                                pelicula['poster_path'] = IMG_PATH + pelicula['poster_path'];
-                                pelicula['backdrop_path'] = IMG_PATH + pelicula['backdrop_path'];
-                                
-                                pelicula.stars = Math.round(pelicula['vote_average'] / 2);
-                                return pelicula;
-                        })
-                        botonBuscar.addEventListener('click', buscar);
-                        pagina(films);
-
-
-
-
-                })
-
-
-
-        });
-
-
-
+                pelicula.stars = Math.round(pelicula['vote_average'] / 2);
+                return pelicula;
+        })
+        botonBuscar.addEventListener('click', buscar);
+        pagina(films);
 
 });
 function pagina(films) {
@@ -48,7 +34,6 @@ function pagina(films) {
 
         divFilms.innerHTML = '';
         films.forEach((film) => {
-
 
                 let { title, vote_average, poster_path, release_date, id } = film;
 
