@@ -12,7 +12,7 @@ body:before {
 	bottom: 0;
 	left: 0;
 	right: 0;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.9);
     z-index: -1;
 }
 #films{
@@ -36,12 +36,10 @@ p{
 }
 
 #titulo{
-    font-size: 20px;
-    
+    padding-bottom: 20px;    
     font-family: 'Lato' ;
     display: inline-grid;
-    grid-template-columns: 220px;
-    grid-template-rows: 50px;
+    width: 100%;
     margin-bottom: 0px;
     color: rgb(219, 170, 107);
     text-align : left;
@@ -88,6 +86,14 @@ p1{
     font-size: 25px;
     font-family: 'Lato', sans-serif;
     color: blanchedalmond;
+    
+    
+}
+divv{
+    width: 700px;
+    margin: 0%;
+    height: 400px;
+    text-align : justify;
     
     
 }
