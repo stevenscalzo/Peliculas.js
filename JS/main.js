@@ -52,10 +52,10 @@ window.addEventListener('load', async () => {
         botonFav.addEventListener('click', favoritos);
 
 
-        let ordenFecha = films.sort(function (a, b) {
+        let ordenFecha = films.sort(function (movie1, movie2) {
                 if (a.release_date > b.release_date) {
                         return -1;
-                } else if (a.release_date < b.release_date) {
+                } else if (movie1.release_date < movie2.release_date) {
                         return 1;
                 } else return 0;
         });
