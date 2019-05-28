@@ -114,18 +114,13 @@ function pagina(movie) {
 
 
 }
-function buscar() {
-        console.log('buscar');
+
+
+
+function buscar( ){
         let inputElement = document.querySelector('#inputBusqueda');
-        console.log(inputElement.value);
         let find = inputElement.value.toLowerCase();
-        let film = films.filter((film) => film.title.toLowerCase().includes(find));
-        console.log(filtrados);
-        if (filtrados.length == 0) {
-                pagina(films)
-        } else {
-                pagina(film)
-        };
+        console.log(find);
+        window.location.href = `index.html?buscar=${find}`;
+
 }
-
-

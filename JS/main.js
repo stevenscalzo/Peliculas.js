@@ -50,10 +50,9 @@ window.addEventListener('load', async () => {
         botonOrdenarPopulares.addEventListener('click', ordenarPopulares);
         botonOrdenarFecha.addEventListener('click', ordenarFecha);
         botonFav.addEventListener('click', favoritos);
-
-
+        
         let ordenFecha = films.sort(function (movie1, movie2) {
-                if (a.release_date > b.release_date) {
+                if (movie1.release_date > movie2.release_date) {
                         return -1;
                 } else if (movie1.release_date < movie2.release_date) {
                         return 1;
@@ -62,13 +61,22 @@ window.addEventListener('load', async () => {
         document.querySelector('#header').style.backgroundImage = `url(${ordenFecha[0].backdrop_path})`;
         document.querySelector('#new').innerHTML = `<a href="/peliculas.html?peliculas=${ordenFecha[0].id}" >Premiere: ${ordenFecha[0].title} `;
 
-        pagina(films);
+        let url = new URL(window.location.href);
+        let idpelicula = url.searchParams.get('buscar');
+        if (idpelicula !== null) {
+                
+                console.log(idpelicula);
+                console.log(url);
+                buscar();
+        } else{
+                pagina(films);
+        }
 
 });
 function pagina(films) {
 
 
-
+        console.log(films);
         let divFilms = document.querySelector('#films');
 
         divFilms.innerHTML = '';
@@ -88,8 +96,7 @@ function pagina(films) {
                         if (contadorFav == 0) {
                                 i = 0;
                         } else { i = 1 };
-                        console.log(idFilm);
-                        console.log(contadorFav);
+
                 } else i = 0;
 
 
@@ -130,18 +137,36 @@ function pagina(films) {
 
 
         });
+        history.pushState(null, "", "index.html");
 }
 
 function buscar() {
+        let url = new URL(window.location.href);
+        let idpelicula = url.searchParams.get('buscar');
+        if (idpelicula == null) {
 
-        let inputElement = document.querySelector('#inputBusqueda');
-        let find = inputElement.value.toLowerCase();
-        let film = films.filter((film) => film.title.toLowerCase().includes(find));
-        if (film.length == 0) {
-                pagina(films)
-        } else {
-                pagina(film)
-        };
+                let inputElement = document.querySelector('#inputBusqueda');
+                let find = inputElement.value.toLowerCase();
+                console.log(find);
+                let film = films.filter((film) => film.title.toLowerCase().includes(find));
+                if (film.length == 0) {
+                        pagina(films)
+                } else {
+                        pagina(film)
+                }
+        } else{
+                
+                let find = idpelicula.toLowerCase();
+                console.log(find);
+                let film = films.filter((film) => film.title.toLowerCase().includes(find));
+                if (film.length == 0) {
+                        console.log("1");
+                        pagina(films);
+                } else {console.log(film);
+                        pagina(film)
+
+                }
+        }
 }
 
 function ordenarAlfabeticamente() {
@@ -198,7 +223,7 @@ function ordenarFecha() {
 
 
 function favoritos() {
-        
+
         let paginaFav = fav[0];
         let log = films.length;
         let long = paginaFav.length;
